@@ -295,101 +295,173 @@
 
 
 
-// ES6 Параметры функции по умолчанию
-function showTestHowrs(str = "неизвестно", num = 30) {
-    let testHowrs = num,
-        name = str;
-    return `Имя студента(ки) ${name}, использовано ${testHowrs} тестовых часа(ов)`;
-}
-console.log(showTestHowrs());
-console.log(showTestHowrs("Анна", 0));
-// "Имя студента(ки) неизвестно, использовано 30 тестовых часа(ов)"
-// "Имя студента(ки) Анна, использовано 0 тестовых часа(ов)"
+// // ES6 Параметры функции по умолчанию
+// function showTestHowrs(str = "неизвестно", num = 30) {
+//     let testHowrs = num,
+//         name = str;
+//     return `Имя студента(ки) ${name}, использовано ${testHowrs} тестовых часа(ов)`;
+// }
+// console.log(showTestHowrs());
+// console.log(showTestHowrs("Анна", 0));
+// // "Имя студента(ки) неизвестно, использовано 30 тестовых часа(ов)"
+// // "Имя студента(ки) Анна, использовано 0 тестовых часа(ов)"
+//
+// // hoisting
+// function foo () {
+//     let top;
+//     console.log(`top is ${top}`);  // "top is undefined"
+//     top = "top";
+//     console.log(`top is ${top}`);  // "top is top;"
+// }
+// foo();
+//
+//
+// // Функция-объявление
+// f1();
+// function f1() {
+//     console.log(`Функция-объявление`);
+// }
+//
+// // функция-выражение
+// // f2(); в отличие от функции-объявления вызов функции до ее объявления приведет к ошибке "TypeError: ... is not a function".
+// const f2 = function() {
+//     console.log(`функция-выражение`);
+// }
+// f2();
+//
+// // return без значения
+// function showMovie(age) {
+//     if (age<17) {
+//         alert( "Фильм не для всех" );
+//         return; // прерывает выполнение функции
+//     }
+//
+//     alert( "Добро пожаловать!" );
+// }
+// showMovie(17);
+//
+// // пример 2
+// const countDownFrom = function recursionFoo (n) {   // Именнованая функция-выражение
+//     if (n < 0) return; //выход
+//     console.log(`recursionFoo =  ${n}`);  // рекурсия
+//     recursionFoo(n - 1);
+// };
+// countDownFrom(5);
+//
+// // Анонимная функция хороша тем что ее имя сразу удаляется сборщиком мусора
+//
+//
+//
+// // Стрелочные функции (Arrow functions)
+// // не явный возврат
+// const nothing = () => "nothing";   //  fat arrow function
+// const abs = x => Math.abs(x);
+// const add = (x, y) => x + y;
+//
+// console.log(nothing());  // nothing
+// console.log(abs(-5));    // 5
+// console.log(add(2, 5)); // 7
+// // явный возврат
+// // Если фигурные скобки после символа => стоят, значит необходимо явно задать то, что должна вернуть функция
+// // - написать слово return и выражение. Это явный возврат - explicit return.
+// const add1 = (x, y) => {return x + y};
+// console.log(add1(10, 2)); // 12
+//
+// // callback-функции
+//
+// // Функция обратного вызова - это функция,
+// // переданная в другую функцию в качестве аргумента, где она вызывается внутри тела внешней функции.
+//
+// function foo1 (callback) {
+//     return callback();
+// }
+// function getOne () {
+//     return 1;
+// }
+// console.log(foo1(getOne)); // 1
+//
+//
+// // Пример угадай число:
+// function congratulate (callback) {
+//     const secretNumber = 5;  // секретное число
+//     alert(callback(secretNumber));
+// }
+//
+// function guessNumber (num) {  //num==secretNumber==5
+//     let userNumber = +prompt('Введите число');
+//     return num === userNumber ? "Поздравляем! Вы угадали секретное число" : "Сожалеем! Вы не угадали секретное число";
+// }
+//
+// congratulate(guessNumber);
 
-// hoisting
-function foo () {
-    let top;
-    console.log(`top is ${top}`);  // "top is undefined"
-    top = "top";
-    console.log(`top is ${top}`);  // "top is top;"
-}
-foo();
+//////////////////// !!!Псевдомассив!!! arguments//////////////////
+/////// Array.from()
+function sum () {
+    const max = arguments.length; // max = 9
+
+    ///// понимание/////
+    console.log(arguments[1],arguments[2]);
+    console.log(`Arguments: ${arguments}`);
+    const args=Array.from(arguments);  // перевели псевдомассив в массив
+    console.log(`Arg: ${args}`);
+    console.log(args);
 
 
-// Функция-объявление
-f1();
-function f1() {
-    console.log(`Функция-объявление`);
-}
-
-// функция-выражение
-// f2(); в отличие от функции-объявления вызов функции до ее объявления приведет к ошибке "TypeError: ... is not a function".
-const f2 = function() {
-    console.log(`функция-выражение`);
-}
-f2();
-
-// return без значения
-function showMovie(age) {
-    if (age<17) {
-        alert( "Фильм не для всех" );
-        return; // прерывает выполнение функции
+    let res = 0;
+    for (let i = 0; i < max; i++) {
+        res += arguments[i];
     }
-
-    alert( "Добро пожаловать!" );
+    return res;
 }
-showMovie(17);
+console.log(`sum = ${sum(1, 2, 3, 4, 5, 6, 7, 8 ,9, 10)}`); // "sum = 55"
 
-// пример 2
-const countDownFrom = function recursionFoo (n) {   // Именнованая функция-выражение
-    if (n < 0) return; //выход
-    console.log(`recursionFoo =  ${n}`);  // рекурсия
-    recursionFoo(n - 1);
-};
-countDownFrom(5);
+///////// Array.from() и другие способы преобразовать псевдомассив в массив//////////////
 
-// Анонимная функция хороша тем что ее имя сразу удаляется сборщиком мусора
-
-
-
-// Стрелочные функции (Arrow functions)
-// не явный возврат
-const nothing = () => "nothing";   //  fat arrow function
-const abs = x => Math.abs(x);
-const add = (x, y) => x + y;
-
-console.log(nothing());  // nothing
-console.log(abs(-5));    // 5
-console.log(add(2, 5)); // 7
-// явный возврат
-// Если фигурные скобки после символа => стоят, значит необходимо явно задать то, что должна вернуть функция
-// - написать слово return и выражение. Это явный возврат - explicit return.
-const add1 = (x, y) => {return x + y};
-console.log(add1(10, 2)); // 12
-
-// callback-функции
-
-// Функция обратного вызова - это функция,
-// переданная в другую функцию в качестве аргумента, где она вызывается внутри тела внешней функции.
-
-function foo1 (callback) {
-    return callback();
+function multiplyBy2() {
+    return Array.from(arguments, n => n * 2);
 }
-function getOne () {
-    return 1;
+console.log(`multiplyBy2 = ${multiplyBy2(1, 2, 3, 4, 5, 6)}`);
+// "multiplyBy2 = 2,4,6,8,10,12"
+
+function multiplyBy3() {
+    const args = [...arguments];
+    return args.map(n => n * 3);
 }
-console.log(foo1(getOne)); // 1
+console.log(`multiplyBy3 = ${multiplyBy3(1, 2, 3, 4, 5, 6)}`);
+// "multiplyBy3 = 3,6,9,12,15,18"
 
-
-// Пример угадай число:
-function congratulate (callback) {
-    const secretNumber = 5;  // секретное число
-    alert(callback(secretNumber));
+function multiplyBy4() {
+    const args = Array.prototype.slice.call(arguments);
+    return args.map(n => n * 4);
 }
+console.log(`multiplyBy4 = ${multiplyBy4(1, 2, 3, 4, 5, 6, 7)}`);
+// "multiplyBy4 = 4,8,12,16,20,24,28"
 
-function guessNumber (num) {  //num==secretNumber==5
-    let userNumber = +prompt('Введите число');
-    return num === userNumber ? "Поздравляем! Вы угадали секретное число" : "Сожалеем! Вы не угадали секретное число";
-}
 
-congratulate(guessNumber);
+
+////////////////// Функциональные методы массивов
+
+//array.method(callback)
+// Аргументами callback-функции являются значение элемента item и позиция элемента idx.
+// если аргумент один, то только item
+
+/////////////map////////////
+
+const addOne = [0, 2, 4].map(n => n + 1);
+console.log(addOne); // [1, 3, 5]
+
+const clients = ["mary", "ANN", "BoB"];
+
+//////Пример 2
+const clientsCapitalize = clients.map(
+    str => str.charAt(0).toUpperCase() + str.substr(1).toLowerCase()
+);
+console.log(clientsCapitalize); // ["Mary", "Ann", "Bob"]
+
+////////////filter///////////////
+
+const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const even = numbers.filter(n => n % 2 !== 0); // возвращаем то что ровно не делится на 2!
+console.log(even); // [1, 3, 5, 7, 9]
+
