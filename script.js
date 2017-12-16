@@ -348,3 +348,48 @@ const countDownFrom = function recursionFoo (n) {   // Именнованая ф
 };
 countDownFrom(5);
 
+// Анонимная функция хороша тем что ее имя сразу удаляется сборщиком мусора
+
+
+
+// Стрелочные функции (Arrow functions)
+// не явный возврат
+const nothing = () => "nothing";   //  fat arrow function
+const abs = x => Math.abs(x);
+const add = (x, y) => x + y;
+
+console.log(nothing());  // nothing
+console.log(abs(-5));    // 5
+console.log(add(2, 5)); // 7
+// явный возврат
+// Если фигурные скобки после символа => стоят, значит необходимо явно задать то, что должна вернуть функция
+// - написать слово return и выражение. Это явный возврат - explicit return.
+const add1 = (x, y) => {return x + y};
+console.log(add1(10, 2)); // 12
+
+// callback-функции
+
+// Функция обратного вызова - это функция,
+// переданная в другую функцию в качестве аргумента, где она вызывается внутри тела внешней функции.
+
+function foo1 (callback) {
+    return callback();
+}
+function getOne () {
+    return 1;
+}
+console.log(foo1(getOne)); // 1
+
+
+// Пример угадай число:
+function congratulate (callback) {
+    const secretNumber = 5;  // секретное число
+    alert(callback(secretNumber));
+}
+
+function guessNumber (num) {  //num==secretNumber==5
+    let userNumber = +prompt('Введите число');
+    return num === userNumber ? "Поздравляем! Вы угадали секретное число" : "Сожалеем! Вы не угадали секретное число";
+}
+
+congratulate(guessNumber);
