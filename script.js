@@ -333,9 +333,18 @@ f2();
 function showMovie(age) {
     if (age<17) {
         alert( "Фильм не для всех" );
-        return;
+        return; // прерывает выполнение функции
     }
 
     alert( "Добро пожаловать!" );
 }
 showMovie(17);
+
+// пример 2
+const countDownFrom = function recursionFoo (n) {   // Именнованая функция-выражение
+    if (n < 0) return; //выход
+    console.log(`recursionFoo =  ${n}`);  // рекурсия
+    recursionFoo(n - 1);
+};
+countDownFrom(5);
+
