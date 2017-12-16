@@ -204,11 +204,138 @@
 // console.log("fourth: ", fourth);
 //
 
-// Деструктуризация массивов
-const clients = ["Mango", "Poly", "Ajax"];
-[first,second,third,fourth] = clients;
+// // Деструктуризация массивов
+// const clients = ["Mango", "Poly", "Ajax"];
+// [first,second,third,fourth] = clients;
+//
+// console.log("firstName: ", first);
+// console.log("secondName: ", second);
+// console.log("thirdName: ", third);
+// console.log("fourthName: ", fourth); // undefined
+//
+//
+// // Вспомним про операцию a % b и выведем остаток от деления используя цикл
+// for(let i = 0, max = 10; i < max; i += 1) {
+//     console.log(`${max} % ${i} = ${max % i}`);
+// }
 
-console.log("firstName: ", first);
-console.log("secondName: ", second);
-console.log("thirdName: ", third);
-console.log("fourthName: ", fourth); // undefined
+
+
+// Итерация по массиву
+// const clients = ['Mango', 'Ajax', 'Poly'];
+//
+// for(let value of clients) {
+//     console.log(value);
+// }
+//
+// // Итерация по строке
+// const iterable = 'javascript';
+//
+// for (const value of iterable) {
+//     console.log(value);
+// }
+
+// Далее в курсе мы познакомимся с такими коллекциями как Map, Set и Arguments.
+// Их можно перебирать с помощью for...of
+
+
+// //================================================
+// //break, continue
+// // Давайте искать имя клиента в массиве имен, если нашли прервем цикл так как нет смысла искать дальше, имена у нас уникальные
+// const clients = ["Mango", "Poly", "Ajax"];
+// const clientName = "Poly";
+// let resultMessage = "";
+//
+// // На каждой итерации мы будем проверять совпадает ли элемент массива с именем
+// // Если совпадает то мы записываем в resultMessage сообщение об успехе и делаем break чтобы не искать дальше
+// // Если они не совпадают то запишем в resultMessage сообещние об отсутсвии имени
+// // Уберите break и посмотрите что в результате запишется в resultMessage если имя клиента не стоит последним
+// // в массиве, всегда будет сообщение о отуствии имени. Так как даже после того как будет совпадение, цикл
+// // продолжит выполнение и последующие несовпадения перезапишут resultMessage
+// for (const value of clients) {
+//     if (value === clientName) {
+//         resultMessage = "Клиент с таким именем есть в базе данных!";
+//         break;
+//     }
+//     resultMessage = "Клиента с таким именем нету в базе данных!";
+//
+// }
+// console.log(resultMessage);
+//
+// // PS: Можно изначально задать resultMessage значение неудачи поиска, а в цикле перезаписать ее на успех если
+// // нашли имя. Но break всеравно пригодится, так как если у нас массив из 10000 клиентов а нужный нам стоит
+// // на позиции 2, то нет абсолютно никакого смысла перебирать оставшиеся 9998 элементов.
+//
+//
+// //================================================
+// // Используем цикл для вывода только нечетных чисел!
+// // Для чётных i срабатывает continue, выполнение тела прекращается и управление передаётся на
+// // следующий проход for.
+// const number = 10;
+// for (let i = 0; i < number; i += 1) {
+//     if (i % 2 === 0) continue;
+//     console.log("Нечетное i: ", i);
+// }
+//
+
+
+//////////////Функции//////////////
+
+
+// let outerString = "Меня видно внутри и снаружи. ";
+//
+// function hide () {
+//     let innerString = "Меня видно внутри. ";
+//     console.log("In: outerString said - " + outerString);
+//     console.log("In: innerString said - " + innerString);
+// }
+// hide ();
+// console.log("Out: outerString said - " + outerString);
+// console.log("Out: innerString said - " + innerString);
+
+
+
+// ES6 Параметры функции по умолчанию
+function showTestHowrs(str = "неизвестно", num = 30) {
+    let testHowrs = num,
+        name = str;
+    return `Имя студента(ки) ${name}, использовано ${testHowrs} тестовых часа(ов)`;
+}
+console.log(showTestHowrs());
+console.log(showTestHowrs("Анна", 0));
+// "Имя студента(ки) неизвестно, использовано 30 тестовых часа(ов)"
+// "Имя студента(ки) Анна, использовано 0 тестовых часа(ов)"
+
+// hoisting
+function foo () {
+    let top;
+    console.log(`top is ${top}`);  // "top is undefined"
+    top = "top";
+    console.log(`top is ${top}`);  // "top is top;"
+}
+foo();
+
+
+// Функция-объявление
+f1();
+function f1() {
+    console.log(`Функция-объявление`);
+}
+
+// функция-выражение
+// f2(); в отличие от функции-объявления вызов функции до ее объявления приведет к ошибке "TypeError: ... is not a function".
+const f2 = function() {
+    console.log(`функция-выражение`);
+}
+f2();
+
+// return без значения
+function showMovie(age) {
+    if (age<17) {
+        alert( "Фильм не для всех" );
+        return;
+    }
+
+    alert( "Добро пожаловать!" );
+}
+showMovie(17);
