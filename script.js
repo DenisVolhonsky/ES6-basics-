@@ -354,6 +354,9 @@
 //
 // // Стрелочные функции (Arrow functions)
 // // не явный возврат
+
+// // n => n+1  означает что function(n){return n+1;}
+
 // const nothing = () => "nothing";   //  fat arrow function
 // const abs = x => Math.abs(x);
 // const add = (x, y) => x + y;
@@ -465,10 +468,68 @@ const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const even = numbers.filter(n => n % 2 !== 0); // возвращаем то что ровно не делится на 2!
 console.log(even); // [1, 3, 5, 7, 9]
 
-// Пример работы callback c map
+////// Пример работы callback c map
 const numbers1 = [0, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5];
-console.log(numbers1.map(f5));
 
-function f5(n, i){
-    return console.log(`Index: ${i} = ${n}`);
-}
+const all = numbers1.map(n => n);
+console.log(all);
+
+
+// function foo (callback) {
+//     return callback();
+// }
+// function getOne () {
+//     return 1;
+// }
+// console.log(foo (getOne)); // 1
+
+
+const userList = [
+    { id: 1, name: "Mango" },
+    { id: 2, name: "Poly" },
+    { id: 3, name: "Ajax" },
+    { id: 4, name: "Chelsey" }
+];
+
+// Метод find перебирает коллекцию до первого совпадения, после чего прекращает выполнение
+// Если есть совпадение то возвращает сам элемент, а не массив. Если совпадения нет, то вернет undefined
+
+const findUser = (users, id) => users.find(user => user.id === id);
+
+// тоже самое
+
+// function findUser(users,id){
+//     return users.find(function(user) {
+//         return user.id===id
+//     })
+// }
+
+console.log(findUser(userList, 2)); // {id: 2, name: "Poly"}
+console.log(findUser(userList, 4)); // {id: 4, name: "Chelsey"}
+console.log(findUser(userList, 10)); // undefined
+
+
+// Чейнинг   выполняется слева направо
+
+const hoursWorkedPerWeek = [8, 9, 8, 8, 10, 3, 2];
+const rate = 15;
+
+// сверх 8 часов 1.5-ая оплата
+const payment = hoursWorkedPerWeek
+    .map(n => (n > 8 ? n * 1.5 * rate : n * rate))
+    .reduce((accum, next) => accum + next);
+
+console.log(`payment = ${payment}`); // 862.5
+
+// за работу в выходные дни бонус + 1/2 ставки
+const bonus = hoursWorkedPerWeek
+    .filter((n, i) => i > 4)
+    .map(n => n * 0.5 * rate)
+    .reduce((accum, next) => accum + next);
+
+console.log(`bonus = ${bonus}`); // 37.5
+
+const total = payment + bonus;
+console.log(`total = ${total}`); // 900
+
+
