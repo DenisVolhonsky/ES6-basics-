@@ -465,3 +465,10 @@ const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const even = numbers.filter(n => n % 2 !== 0); // возвращаем то что ровно не делится на 2!
 console.log(even); // [1, 3, 5, 7, 9]
 
+// Пример работы callback c map
+const numbers1 = [0, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5];
+console.log(numbers1.map(f5));
+
+function f5(n, i){
+    return console.log(`Index: ${i} = ${n}`);
+}
